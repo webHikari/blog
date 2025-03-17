@@ -1,4 +1,4 @@
-name: Deploy to Server
+name: Deploy Frontend
 
 on:
   push:
@@ -10,35 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout репозитория
         uses: actions/checkout@v4
 
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Build Project
-        run: npm run build
-
-      - name: Add Known Hosts
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
-
-      - name: Debug SSH Known Hosts
-        run: cat ~/.ssh/known_hosts || echo "No known_hosts file"
-
-      - name: Copy Files to Server
-        run: |
-          scp -r dist/* ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:/var/www/hikari.fish
-
-      - name: Deploy on Server
+      - name: Деплой на сервер
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            set -e
-            sudo chown -R www-data:www-data /var/www/hikari.fish
-            sudo systemctl restart nginx
+            cd ~/hikari.fish
+            git pull origin main
+            npm install
+            npm run build
+            sudo rm -rf /var/www/hikari.fish/*
+            sudo cp -R build/* /var/www/hikari.fish
