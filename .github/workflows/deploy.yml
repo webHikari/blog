@@ -25,7 +25,14 @@ jobs:
           echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
-      - name: Deploy to Server
+      - name: Debug SSH Known Hosts
+        run: cat ~/.ssh/known_hosts || echo "No known_hosts file"
+
+      - name: Copy Files to Server
+        run: |
+          scp -r dist/* ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:/var/www/hikari.fish
+
+      - name: Deploy on Server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -33,8 +40,5 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
             set -e
-            cd /var/www/hikari.fish
-            sudo rm -rf *
-            scp -r dist/* ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:/var/www/hikari.fish
             sudo chown -R www-data:www-data /var/www/hikari.fish
             sudo systemctl restart nginx
