@@ -1,0 +1,503 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--card-background);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border: var(--card-border);
+    margin-top: var(--spacing-md);
+    transform: rotate(-0.5deg);
+    width: 100%;
+}
+
+.desktopNav {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.desktopLinks {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.desktopLogo {
+    display: flex;
+    align-items: center;
+}
+
+.logoLink {
+    font-family: var(--font-title);
+    color: var(--primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 0px #000000;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.logoLink:hover {
+    /* transform: rotate(2deg) scale(1.05); */
+    color: var(--secondary);
+}
+
+.mobileNav {
+    display: none;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: var(--font-title);
+    color: var(--primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 0px #000000;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+}
+
+.logo::before {
+    content: "♡";
+    position: absolute;
+    left: -20px;
+    top: 0;
+    color: var(--secondary);
+    font-size: 1rem;
+    animation: float 2s ease-in-out infinite;
+}
+
+.logo::after {
+    content: "♡";
+    position: absolute;
+    right: -20px;
+    top: 0;
+    color: var(--secondary);
+    font-size: 1rem;
+    animation: float 2s ease-in-out infinite 0.5s;
+}
+
+.hamburger {
+    display: none;
+}
+
+.hamburger::before,
+.hamburger::after {
+    display: none;
+}
+
+.drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+    display: flex;
+    justify-content: flex-end;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s;
+}
+
+.drawerContent {
+    width: 100%;
+    max-width: 320px;
+    height: 100%;
+    background-color: var(--app-background);
+    padding: var(--spacing-lg);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    border-left: var(--card-border);
+    box-shadow: -5px 0px 0px #000000;
+    background-image: 
+        radial-gradient(var(--accent) 2px, transparent 2px),
+        radial-gradient(var(--primary) 2px, transparent 2px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.drawerContent::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.85);
+    z-index: -1;
+}
+
+.drawerHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+.drawerTitle {
+    font-family: var(--font-title);
+    color: var(--primary);
+    font-size: 1.5rem;
+    text-shadow: 2px 2px 0px #000000;
+    position: relative;
+    display: inline-block;
+}
+
+.drawerTitle::after {
+    content: "★";
+    position: absolute;
+    top: -10px;
+    right: -20px;
+    color: var(--accent);
+    font-size: 1rem;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+.drawerDivider {
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    margin-bottom: var(--spacing-md);
+    position: relative;
+}
+
+.drawerDivider::before,
+.drawerDivider::after {
+    content: "✧";
+    position: absolute;
+    top: -10px;
+    color: var(--secondary);
+    font-size: 0.8rem;
+    animation: float 2s ease-in-out infinite;
+}
+
+.drawerDivider::before {
+    left: 10px;
+}
+
+.drawerDivider::after {
+    right: 10px;
+    animation-delay: 0.5s;
+}
+
+.drawerClose {
+    background: white;
+    border: 3px solid var(--primary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--primary);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 0px #000000;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+}
+
+.drawerClose::before {
+    content: "✕";
+    position: relative;
+    z-index: 2;
+    transition: var(--transition);
+}
+
+.drawerClose::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    opacity: 0;
+    transition: var(--transition);
+    z-index: 1;
+}
+
+.drawerClose:hover::after {
+    opacity: 0.3;
+}
+
+.drawerClose:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0px #000000;
+    color: var(--secondary);
+}
+
+.drawerClose:hover::before {
+    transform: rotate(90deg);
+}
+
+.drawerNav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-bottom: auto;
+}
+
+.drawerNav a {
+    text-decoration: none;
+    color: var(--card-foreground);
+    font-family: var(--font-subtitle);
+    font-weight: 500;
+    font-size: 1.4rem;
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    border: 2px solid #000;
+    background-color: white;
+    box-shadow: 4px 4px 0px #000000;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.navIcon {
+    font-size: 1.2rem;
+    color: var(--primary);
+    display: inline-block;
+    transition: var(--transition);
+}
+
+.drawerNav a:nth-child(even) .navIcon {
+    color: var(--accent);
+}
+
+.drawerNav a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.drawerNav a:hover {
+    color: var(--primary);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #000000;
+    background-color: var(--light-accent);
+}
+
+.drawerNav a:hover .navIcon {
+    transform: scale(1.2) rotate(15deg);
+}
+
+.drawerFooter {
+    margin-top: auto;
+    text-align: center;
+    padding-top: var(--spacing-md);
+    border-top: 2px dashed #000;
+}
+
+.kawaiiFace {
+    font-size: 1.8rem;
+    color: var(--primary);
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    animation: float 3s ease-in-out infinite;
+}
+
+.drawerFooter p {
+    font-family: var(--font-subtitle);
+    font-size: 1.2rem;
+    color: var(--secondary);
+}
+
+.open {
+    display: block;
+}
+
+/* Добавляем класс для открытого drawer */
+:global(.drawer-open) .drawerContent {
+    transform: translateX(0);
+}
+
+/* Медиа-запросы */
+@media (max-width: 767px) {
+    .desktopNav {
+        display: none;
+    }
+    
+    .mobileNav {
+        display: flex;
+    }
+    
+    .drawerToggle {
+        display: block;
+    }
+}
+
+@media (min-width: 768px) {
+    .mobileNav {
+        display: none;
+    }
+    
+    .desktopNav {
+        display: flex;
+    }
+}
+
+/* Анимации */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0);
+    }
+    50% {
+        transform: translateY(-5px) rotate(15deg);
+    }
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+.drawerToggle {
+    background: white;
+    border: 3px solid var(--primary);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 0px #000000;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+    cursor: pointer;
+}
+
+.drawerToggle::before {
+    content: "≡";
+    font-size: 1.8rem;
+    color: var(--primary);
+    position: relative;
+    z-index: 2;
+    transition: var(--transition);
+}
+
+.drawerToggle::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    opacity: 0;
+    transition: var(--transition);
+    z-index: 1;
+}
+
+.drawerToggle:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0px #000000;
+}
+
+.drawerToggle:hover::before {
+    color: var(--secondary);
+    transform: rotate(90deg);
+}
+
+.drawerToggle:hover::after {
+    opacity: 0.3;
+}
+
+.drawerToggle:active {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0px #000000;
+}
+
+.drawerToggle .decoration {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 12px;
+    height: 12px;
+    background-color: var(--accent);
+    border: 2px solid #000;
+    border-radius: 50%;
+    z-index: 3;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.drawerToggle:hover .decoration {
+    opacity: 1;
+    animation: float 2s ease-in-out infinite;
+}
+
+.desktopLinks a {
+    text-decoration: none;
+    color: var(--card-foreground);
+    font-family: var(--font-subtitle);
+    font-weight: 500;
+    font-size: 1.2rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    border: 2px solid #000;
+    background-color: white;
+    box-shadow: 3px 3px 0px #000000;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.desktopLinks a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.desktopLinks a:hover {
+    /* color: var(--primary); */
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0px #000000;
+    background-color: var(--light-accent);
+}
+
+.desktopLinks a:active {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0px #000000;
+}
+
+

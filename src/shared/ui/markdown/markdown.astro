@@ -1,0 +1,14 @@
+---
+const { post, title, pubDate } = Astro.props;
+
+const { Content } = await post.render();
+
+import styles from './markdown.module.css';
+---
+
+<article class={styles.article}>
+    <h1 class="title">{title}</h1>
+    <p class="subtitle"><i>{pubDate.toDateString()}</i></p>
+    <Content class="text" />
+</article>
+

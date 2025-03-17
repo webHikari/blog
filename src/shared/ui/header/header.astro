@@ -1,0 +1,155 @@
+---
+import { SITEURL } from 'src/consts.ts';
+import styles from './header.module.css';
+---
+
+<header class={styles.header}>
+    <div class={styles.desktopNav}>
+        <div class={styles.desktopLogo}>
+            <a href="/" class={styles.logoLink}>{SITEURL}</a>
+        </div>
+        <div class={styles.desktopLinks}>
+            <a href="/">Homepage</a>
+            <a href="/blog">Blog</a>
+        </div>
+    </div>
+    <div class={styles.mobileNav}>
+        <h1 class={styles.logo}>{SITEURL}</h1>
+
+        <button class={styles.drawerToggle} id="drawer-toggle" aria-label="Open menu">
+            <!-- Псевдоэлемент ::before добавляет иконку меню -->
+        </button>
+    </div>
+</header>
+
+<div id="drawer" class={styles.drawer}>
+    <div class={styles.drawerContent}>
+        <div class={styles.drawerHeader}>
+            <h2 class={styles.drawerTitle}>Menu</h2>
+            <button class={styles.drawerClose} id="drawer-close" aria-label="Close menu">
+                <!-- Псевдоэлемент ::before добавляет символ закрытия -->
+            </button>
+        </div>
+        <div class={styles.drawerDivider}></div>
+        <nav class={styles.drawerNav}>
+            <a href="/">
+                <span class={styles.navIcon}>♡</span>
+                Homepage
+            </a>
+            <a href="/blog">
+                <span class={styles.navIcon}>☆</span>
+                Blog
+            </a>
+        </nav>
+        <div class={styles.drawerFooter}>
+            <span class={styles.kawaiiFace}>(◕‿◕✿)</span>
+            <p>{SITEURL}</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Drawer functionality
+    document.addEventListener('DOMContentLoaded', () => {
+        const drawerToggle = document.getElementById('drawer-toggle');
+        const drawerClose = document.getElementById('drawer-close');
+        const drawer = document.getElementById('drawer');
+        
+        if (!drawerToggle || !drawerClose || !drawer) return;
+        
+        // Функция для открытия drawer
+        const openDrawer = () => {
+            drawer.classList.add('drawer-open');
+            document.body.style.overflow = 'hidden';
+        };
+        
+        // Функция для закрытия drawer
+        const closeDrawer = () => {
+            drawer.classList.remove('drawer-open');
+            document.body.style.overflow = '';
+        };
+        
+        // Обработчики событий
+        drawerToggle.addEventListener('click', openDrawer);
+        drawerClose.addEventListener('click', closeDrawer);
+        
+        // Закрытие drawer при клике вне его содержимого
+        drawer.addEventListener('click', (e) => {
+            if (e.target === drawer) {
+                closeDrawer();
+            }
+        });
+        
+        // Закрытие drawer при нажатии Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && drawer.classList.contains('drawer-open')) {
+                closeDrawer();
+            }
+        });
+    });
+</script>
+
+<style>
+    /* Базовые стили для мобильной навигации */
+    .mobileNav {
+        display: none;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    /* Медиа-запросы для переключения между мобильной и десктопной навигацией */
+    @media (min-width: 768px) {
+        .mobileNav {
+            display: none;
+        }
+        .desktopNav {
+            display: flex;
+        }
+    }
+    
+    @media (max-width: 767px) {
+        .desktopNav {
+            display: none;
+        }
+        .mobileNav {
+            display: flex;
+        }
+    }
+    
+    /* Стили для drawer */
+    :global(#drawer) {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(3px);
+        z-index: 1000;
+        display: flex;
+        justify-content: flex-end;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0.3s, opacity 0.3s;
+    }
+    
+    :global(#drawer.drawer-open) {
+        visibility: visible;
+        opacity: 1;
+    }
+    
+    :global(#drawer.drawer-open .drawerContent) {
+        transform: translateX(0);
+    }
+    
+    :global(.drawerContent) {
+        width: 100%;
+        max-width: 320px;
+        height: 100%;
+        background-color: var(--app-background);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        overflow-y: auto;
+    }
+</style>

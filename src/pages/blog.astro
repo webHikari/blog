@@ -1,0 +1,433 @@
+---
+import Page from 'shared/layouts/page/page.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+---
+
+<Page title="Blog" description="This is a description of my window">
+    <div class="search-container">
+        <div class="search-box">
+            <input 
+                type="text" 
+                id="search-input" 
+                placeholder="✧ Search posts ✧" 
+                class="search-input"
+            />
+            <div class="search-icon">♡</div>
+        </div>
+    </div>
+
+    <ul class="post-list" id="post-list">
+        {posts.map((post) => {
+            const slug = post.slug.replace(/\/index$/, '');
+            const randomRotation = Math.floor(Math.random() * 10) - 5;
+            const randomY = Math.floor(Math.random() * 7) - 3;
+            
+            const colors = ['var(--primary)', 'var(--secondary)', 'var(--accent)'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            return (
+                <li 
+                    data-title={post.data.title.toLowerCase()} 
+                    data-description={post.data.description.toLowerCase()}
+                    style={`transform: rotate(${randomRotation}deg) translateY(${randomY}px);`}
+                >
+                    <a href={`/blog/${slug}`} style={`--card-accent: ${randomColor};`}>
+                        <h2>{post.data.title}</h2>
+                        <p>{post.data.description}</p>
+                        <small>{post.data.pubDate.toDateString()}</small>
+                    </a>
+                </li>
+            );
+        })}
+    </ul>
+
+    <div id="no-results" class="no-results">
+        <div class="window">
+            <div class="window-title-bar">
+                <div class="window-title">
+                    <h3>No results found</h3>
+                </div>
+            </div>
+            <div class="window-content">
+                <p>✧ Try another search term ✧</p>
+                <div class="sad-face">⊙﹏⊙</div>
+            </div>
+        </div>
+    </div>
+</Page>
+
+<style>
+    .search-container {
+        margin-bottom: var(--spacing-lg);
+        width: 100%;
+    }
+
+    .search-box {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: var(--spacing-sm);
+        padding-right: 50px;
+        font-family: var(--font-subtitle);
+        font-size: 1.2rem;
+        border: var(--card-border);
+        background-color: white;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        color: var(--card-foreground);
+        /* transform: rotate(-1deg); */
+    }
+
+    .search-input:focus {
+        outline: none;
+        /* transform: rotate(1deg) translateY(-3px); */
+        box-shadow: var(--hover-shadow);
+        /* border-color: var(--primary); */
+    }
+
+    .search-icon {
+        position: absolute;
+        right: 15px;
+        font-size: 1.5rem;
+        color: var(--primary);
+        pointer-events: none;
+        animation: float 2s ease-in-out infinite;
+    }
+
+        /* Стили для списков блога */
+    .post-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: var(--spacing-md);
+        width: 100%;
+    }
+
+    .post-list li {
+        list-style: none;
+        transition: var(--transition);
+        transform: rotate(1deg);
+        
+    }
+
+    .post-list li:nth-child(odd) {
+        transform: rotate(-1deg);
+    }
+
+    .post-list a {
+        display: block;
+        padding: var(--spacing-md);
+        background-color: var(--card-background);
+        text-decoration: none;
+        color: var(--card-foreground);
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        height: 100%;
+        border: var(--card-border);
+        border-radius: var(--border-radius);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .post-list a::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+
+    .post-list a:hover {
+        box-shadow: var(--hover-shadow);
+        transform: translateY(-5px);
+    }
+
+    .post-list h2 {
+        font-family: var(--font-title);
+        margin-bottom: var(--spacing-xs);
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 1.2rem;
+        text-shadow: 2px 2px 0px #000000;
+    }
+
+    .post-list p {
+        font-family: var(--font-text);
+        margin-bottom: var(--spacing-xs);
+        color: var(--card-foreground);
+        border-bottom: 2px dashed #000;
+        padding-bottom: var(--spacing-xs);
+    }
+
+    .post-list small {
+        font-family: var(--font-subtitle);
+        color: var(--secondary);
+        font-size: 1.2rem;
+        display: inline-block;
+        background-color: var(--light-accent);
+        padding: 2px 8px;
+        border: 1px solid #000;
+    }
+
+    /* Декоративные элементы */
+    .post-list li:nth-child(3n+1) a::after {
+        content: "♡";
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        font-size: 1.5rem;
+        color: var(--primary);
+        opacity: 0.7;
+    }
+
+    .post-list li:nth-child(3n+2) a::after {
+        content: "☆";
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        font-size: 1.5rem;
+        color: var(--accent);
+        opacity: 0.7;
+    }
+
+    .post-list li:nth-child(3n) a::after {
+        content: "♪";
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        font-size: 1.5rem;
+        color: var(--secondary);
+        opacity: 0.7;
+    }
+
+    .post-list {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: var(--spacing-md);
+    }
+    
+    .post-list li {
+        margin-bottom: 1.5rem;
+        transition: var(--transition);
+    }
+    
+    .post-list a {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        padding: var(--spacing-md);
+        background-color: var(--card-background);
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        height: 100%;
+        border: var(--card-border);
+    }
+    
+    .post-list a:hover {
+        box-shadow: var(--hover-shadow);
+        transform: translateY(-5px);
+    }
+    
+    .post-list h2 {
+        margin-bottom: 0.5rem;
+    }
+
+    .no-results {
+        display: none;
+        margin-top: var(--spacing-lg);
+        text-align: center;
+    }
+
+    .no-results .window {
+        display: inline-block;
+        max-width: 400px;
+        transform: rotate(2deg);
+        border: var(--card-border);
+        box-shadow: var(--shadow);
+        background-color: var(--card-background);
+    }
+
+    .no-results .window-title-bar {
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        padding: var(--spacing-xs);
+        color: #000000;
+        font-family: var(--font-title);
+        font-size: 0.9rem;
+        text-shadow: 1px 1px 0px #ffffff;
+        border-bottom: 2px solid #000000;
+    }
+
+    .no-results .window-content {
+        padding: var(--spacing-md);
+        font-family: var(--font-subtitle);
+        font-size: 1.2rem;
+    }
+
+    .sad-face {
+        font-size: 2rem;
+        margin-top: var(--spacing-sm);
+        color: var(--secondary);
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+    }
+
+    @keyframes moveItem {
+        0% {
+            transform: translate(0, 0) rotate(var(--initial-rotation));
+        }
+        100% {
+            transform: translate(var(--target-x), var(--target-y)) rotate(var(--initial-rotation));
+        }
+    }
+
+    .post-list li.moving {
+        transition: transform 0.5s ease, opacity 0.5s ease;
+        position: relative;
+        z-index: 10;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('search-input') as HTMLInputElement;
+        const postList = document.getElementById('post-list');
+        const noResults = document.getElementById('no-results');
+        
+        if (!searchInput || !postList || !noResults) return;
+        
+        const listItems = postList.querySelectorAll('li');
+        let searchTimeout: number | null = null;
+
+        const performSearch = (searchTerm: string) => {
+            let hasResults = false;
+            let visibleItems: HTMLElement[] = [];
+
+            listItems.forEach(item => {
+                const title = item.getAttribute('data-title') || '';
+                const description = item.getAttribute('data-description') || '';
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm) || searchTerm === '') {
+                    (item as HTMLElement).style.display = 'block';
+                    hasResults = true;
+                    visibleItems.push(item as HTMLElement);
+                    
+                    item.style.animation = 'fadeIn 0.5s ease forwards';
+                } else {
+                    item.style.animation = 'fadeOut 0.5s ease forwards';
+                    setTimeout(() => {
+                        (item as HTMLElement).style.display = 'none';
+                    }, 500);
+                }
+            });
+
+            if (visibleItems.length > 0 && searchTerm !== '') {
+                const initialPositions = visibleItems.map(item => {
+                    const rect = item.getBoundingClientRect();
+                    return { 
+                        left: rect.left, 
+                        top: rect.top,
+                        rotation: getComputedStyle(item).transform
+                    };
+                });
+                
+                visibleItems.forEach((item, index) => {
+                    const rotation = item.style.transform.match(/rotate\(([^)]+)\)/);
+                    const rotationValue = rotation ? rotation[1] : '0deg';
+                    item.style.setProperty('--initial-rotation', rotationValue);
+                });
+
+                listItems.forEach(item => {
+                    if (!visibleItems.includes(item as HTMLElement)) {
+                        (item as HTMLElement).style.visibility = 'hidden';
+                        (item as HTMLElement).style.display = 'block';
+                    }
+                });
+                
+                const newPositions = visibleItems.map(item => {
+                    const rect = item.getBoundingClientRect();
+                    return { left: rect.left, top: rect.top };
+                });
+                
+                listItems.forEach(item => {
+                    if (!visibleItems.includes(item as HTMLElement)) {
+                        (item as HTMLElement).style.visibility = '';
+                        (item as HTMLElement).style.display = 'none';
+                    }
+                });
+                
+                visibleItems.forEach((item, index) => {
+                    const dx = newPositions[index].left - initialPositions[index].left;
+                    const dy = newPositions[index].top - initialPositions[index].top;
+                    
+                    if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+                        item.style.setProperty('--target-x', `${dx}px`);
+                        item.style.setProperty('--target-y', `${dy}px`);
+                        
+                        item.style.transform = `translate(${-dx}px, ${-dy}px) rotate(var(--initial-rotation))`;
+                        
+                        setTimeout(() => {
+                            item.classList.add('moving');
+                            item.style.transform = 'translate(0, 0) rotate(var(--initial-rotation))';
+                            
+                            setTimeout(() => {
+                                item.classList.remove('moving');
+                                item.style.transform = '';
+                            }, 500);
+                        }, 50);
+                    }
+                });
+            }
+
+            if (!hasResults && searchTerm !== '') {
+                setTimeout(() => {
+                    noResults.style.display = 'block';
+                    noResults.style.animation = 'fadeIn 0.5s ease forwards';
+                }, 500);
+            } else {
+                noResults.style.animation = 'fadeOut 0.5s ease forwards';
+                setTimeout(() => {
+                    if (hasResults || searchTerm === '') {
+                        noResults.style.display = 'none';
+                    }
+                }, 500);
+            }
+        };
+
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            if (searchTimeout) {
+                clearTimeout(searchTimeout);
+            }
+            searchTimeout = setTimeout(() => {
+                performSearch(searchTerm);
+            }, 500) as unknown as number;
+        });
+
+        searchInput.addEventListener('focus', () => {
+            searchInput.style.backgroundColor = 'var(--light-accent)';
+        });
+
+        searchInput.addEventListener('blur', () => {
+            searchInput.style.backgroundColor = 'white';
+        });
+    });
+</script>

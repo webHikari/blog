@@ -1,0 +1,325 @@
+/* Основные шрифты */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+:root {
+    --max-width: 900px;
+    
+    /* Пастельная цветовая схема в стиле Y2K Kawaii */
+    --primary: #ffafd7;
+    --secondary: #b19cd9;
+    --accent: #99e6ff;
+    --light-accent: #e6f9ff;
+    
+    /* Фоны и карточки */
+    --app-background: #fff8f8;
+    --card-background: #ffffff;
+    --card-foreground: #333333;
+    
+    /* Тени и эффекты */
+    --shadow: 6px 6px 0px #000000;
+    --hover-shadow: 10px 10px 0px #000000;
+    --card-border: 3px solid #000000;
+    
+    /* Шрифты */
+    --font-title: 'Press Start 2P', cursive;
+    --font-subtitle: 'VT323', monospace;
+    --font-text: 'Roboto Mono', monospace;
+    --font-mono: 'Roboto Mono', monospace;
+    
+    /* Анимации */
+    --transition: all 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    
+    /* Размеры и отступы */
+    --border-radius: 0px;
+    --spacing-xs: 8px;
+    --spacing-sm: 16px;
+    --spacing-md: 24px;
+    --spacing-lg: 32px;
+}
+
+.subtitle {
+    font-family: var(--font-subtitle);
+    font-weight: 400;
+    color: var(--secondary);
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+}
+
+.title {
+    font-family: var(--font-title);
+    color: var(--primary);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    position: relative;
+    display: inline-block;
+    text-shadow: 3px 3px 0px #000000;
+    letter-spacing: 1px;
+    transform: rotate(-1deg);
+}
+
+.logo {
+    font-family: var(--font-title);
+    color: var(--primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 0px #000000;
+    letter-spacing: 1px;
+}
+
+.text {
+    font-family: var(--font-text);
+    color: var(--card-foreground);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    margin: 0 auto;
+    background-color: var(--app-background);
+    background-image: 
+        radial-gradient(var(--accent) 2px, transparent 2px),
+        radial-gradient(var(--primary) 2px, transparent 2px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+    color: var(--card-foreground);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding-bottom: var(--spacing-lg);
+    font-size: 16px;
+}
+
+body > * {
+    max-width: var(--max-width);
+    width: 100%;
+}
+
+main {
+    /* padding: var(--spacing-md); */
+    width: 100%;
+    max-width: var(--max-width);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    background-color: rgba(255, 255, 255, 0.85);
+    border: var(--card-border);
+    box-shadow: var(--shadow);
+    margin-top: var(--spacing-lg);
+}
+
+button:not(#drawer-toggle, #drawer-close) {
+    background-color: var(--accent);
+    color: black;
+    border: 3px solid black;
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-family: var(--font-title);
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    border-radius: var(--border-radius);
+    box-shadow: 5px 5px 0px #000000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:not(#drawer-toggle, #drawer-close):hover {
+    background-color: var(--primary);
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0px #000000;
+}
+
+button:not(#drawer-toggle, #drawer-close):active {
+    transform: translate(2px, 2px);
+    box-shadow: 3px 3px 0px #000000;
+}
+
+
+
+/* Базовая анимация */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px) rotate(1deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0);
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0);
+    }
+    100% {  
+        opacity: 0;
+        transform: translateY(10px) rotate(1deg);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+main > * {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.title::after {
+    content: "★";
+    position: absolute;
+    right: -40px;
+    top: -10px;
+    color: var(--accent);
+}
+
+/* Добавляем декоративные элементы на страницу */
+main::before {
+    content: "✧";
+    position: absolute;
+    top: 20px;
+    left: 5%;
+    color: var(--primary);
+    font-size: 1.5rem;
+    animation: sparkle 3s ease-in-out infinite;
+    z-index: -1;
+}
+
+main::after {
+    content: "✧";
+    position: absolute;
+    bottom: 40px;
+    right: 5%;
+    color: var(--secondary);
+    font-size: 1.5rem;
+    animation: sparkle 4s ease-in-out infinite;
+    z-index: -1;
+}
+
+.window {
+    position: relative;
+    border: var(--card-border);
+    box-shadow: var(--shadow);
+    background-color: var(--card-background);
+    margin-bottom: var(--spacing-md);
+    overflow: hidden;
+}
+
+.window-title-bar {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    padding: var(--spacing-xs);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #000000;
+    font-family: var(--font-title);
+    font-size: 0.9rem;
+    text-shadow: 1px 1px 0px #ffffff;
+    border-bottom: 2px solid #000000;
+}
+
+.window-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.window-title::before {
+    content: "♥";
+    font-size: 1rem;
+}
+
+.window-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.window-button {
+    width: 16px;
+    height: 16px;
+    background-color: #ffffff;
+    border: 2px solid #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 2px 2px 0px #000000;
+}
+
+.window-button:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0px #000000;
+}
+
+.window-button:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0px #000000;
+}
+
+.window-content {
+    padding: var(--spacing-md);
+}
+
+.status-bar {
+    background-color: var(--light-accent);
+    border-top: 2px solid #000000;
+    padding: var(--spacing-xs);
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: #000000;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.status-item::before {
+    content: "✧";
+    font-size: 0.9rem;
+    color: var(--secondary);
+}
+
+/* Стилизация для вложенных окон */
+.window .window {
+    transform: rotate(1deg);
+    margin: var(--spacing-md);
+}
+
+.window .window:hover {
+    transform: rotate(-1deg) translateY(-3px);
+    box-shadow: var(--hover-shadow);
+}

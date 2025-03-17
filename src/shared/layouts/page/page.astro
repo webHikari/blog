@@ -1,0 +1,59 @@
+---
+import { SITENAME, SITEDESCRIPTION, SITEURL } from 'src/consts.ts';
+import './page.css';
+import Header from 'shared/ui/header/header.astro';
+
+const { title, description } = Astro.props;
+const pageTitle = title ? `${title} | ${SITENAME}` : SITENAME;
+const pageDescription = description || SITEDESCRIPTION;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		
+		<!-- Primary Meta Tags -->
+		<title>{pageTitle}</title>
+		<meta name="title" content={pageTitle} />
+		<meta name="description" content={pageDescription} />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={SITEURL} />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={pageDescription} />
+		
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={SITEURL} />
+		<meta property="twitter:title" content={pageTitle} />
+		<meta property="twitter:description" content={pageDescription} />
+	</head>
+	<body>
+		<Header />
+		
+		<main class="window">
+			<div class="window-title-bar">
+				<div class="window-title">
+					<h2>{title}</h2>
+				</div>
+				<div class="window-controls">
+					<div class="window-button" aria-hidden="true">_</div>
+					<div class="window-button" aria-hidden="true">□</div>
+					<div class="window-button" aria-hidden="true">×</div>
+				</div>
+			</div>
+			<div class="window-content">
+				<slot />
+			</div>
+			<div class="status-bar">
+				<div class="status-item">Hikari</div>
+				<div class="status-item">Y2K Mode</div>
+			</div>
+		</main>
+	</body>
+</html>

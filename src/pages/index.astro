@@ -1,11 +1,276 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Page from 'shared/layouts/page/page.astro';
+import Button from 'shared/ui/button/button.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Add metadata for better SEO
+const title = "I'm Hikari";
+const description = "Personal website of Hikari, a programmer and tech enthusiast sharing coding insights, projects, and tech stories with a Y2K Kawaii Pastel + Neobrutalism aesthetic.";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<Page title={title} description={description}>
+	<div class="profile-container">
+		<section class="profile-header">
+			<h1 class="title">Hi, I'm Hikari</h1>
+			<div class="sparkles" aria-hidden="true"></div>
+		</section>
+		
+		<section class="profile-content">
+			<p class="intro-text">
+				A straight-up coder and tech enthusiast who's done with all the over-complicated BS. 
+				I keep things real and simple, sharing my genuine wins, epic fails, and honest insights on my blog.
+			</p>
+			
+			<p class="style-text">
+				With a Y2K Kawaii Pastel + Neobrutalism vibe, this isn't about being a tech superstar — 
+				it's just me, an experienced programmer showing you that sometimes, the simplest approach is the best.
+			</p>
+			
+			<section class="contact-section">
+				<h2 class="subtitle">Wanna chat or swap some code stories?</h2>
+				<p class="text">Hit me up on:</p>
+				
+				<nav class="social-links" aria-label="Social media links">
+					<a href="https://t.me/net_hikari" class="social-link" rel="noopener noreferrer">
+						<div class="icon-wrapper">
+							<span class="icon telegram-icon" aria-hidden="true"></span>
+						</div>
+						<span>Telegram: @net_hikari</span>
+					</a>
+					<a href="https://github.com/webHikari" class="social-link" rel="noopener noreferrer">
+						<div class="icon-wrapper">
+							<span class="icon github-icon" aria-hidden="true"></span>
+						</div>
+						<span>GitHub: webHikari</span>
+					</a>
+				</nav>
+			</section>
+		</section>
+		
+		<section class="cta-container">
+			<a href="/blog" aria-label="Visit my blog">
+				<Button label="Check out my blog" />
+			</a>
+		</section>
+	</div>
+</Page>
+
+<style>
+	.profile-container {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-md);
+		position: relative;
+		animation: fadeIn 0.8s ease-out;
+	}
+	
+	.profile-header {
+		position: relative;
+		margin-bottom: var(--spacing-md);
+	}
+	
+	.sparkles {
+		position: absolute;
+		top: -15px;
+		right: 30px;
+		font-size: 2rem;
+		color: var(--accent);
+	}
+	
+	.sparkles::before {
+		content: "✧";
+		position: absolute;
+		animation: sparkle 2s infinite;
+	}
+	
+	.sparkles::after {
+		content: "✧";
+		position: absolute;
+		left: 20px;
+		top: 10px;
+		animation: sparkle 3s infinite 0.5s;
+	}
+	
+	.profile-content {
+		background-color: white;
+		border: var(--card-border);
+		box-shadow: var(--shadow);
+		padding: var(--spacing-md);
+		transform: rotate(-0.5deg);
+		transition: var(--transition);
+	}
+	
+	.intro-text, .style-text {
+		font-family: var(--font-text);
+		font-size: 1.1rem;
+		line-height: 1.6;
+		margin-bottom: var(--spacing-md);
+	}
+	
+	.intro-text {
+		border-left: 4px solid var(--primary);
+		padding-left: var(--spacing-sm);
+	}
+	
+	.style-text {
+		border-left: 4px solid var(--secondary);
+		padding-left: var(--spacing-sm);
+	}
+	
+	.contact-section {
+		margin-top: var(--spacing-lg);
+		padding: var(--spacing-md);
+		background-color: var(--light-accent);
+		border: 2px solid black;
+		position: relative;
+		box-shadow: 4px 4px 0px #000000;
+	}
+	
+	.contact-section::before {
+		content: "♡";
+		position: absolute;
+		top: -15px;
+		left: 20px;
+		font-size: 1.5rem;
+		color: var(--primary);
+		animation: float 3s ease-in-out infinite;
+	}
+	
+	.social-links {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-sm);
+		margin-top: var(--spacing-sm);
+	}
+	
+	.social-link {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-xs);
+		text-decoration: none;
+		color: var(--card-foreground);
+		font-family: var(--font-subtitle);
+		font-size: 1.2rem;
+		padding: var(--spacing-xs) var(--spacing-sm);
+		border: 2px solid transparent;
+		transition: var(--transition);
+		width: fit-content;
+	}
+	
+	.social-link:hover {
+		transform: translateX(5px) rotate(-1deg);
+		color: var(--primary);
+		border-bottom: 2px dashed var(--primary);
+	}
+	
+	.icon-wrapper {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		margin-right: var(--spacing-sm);
+	}
+	
+	.icon {
+		display: inline-block;
+		width: 30px;
+		height: 30px;
+		background-color: white;
+		border: 2px solid black;
+		box-shadow: 3px 3px 0px #000000;
+		position: relative;
+		transition: var(--transition);
+	}
+	
+	.telegram-icon {
+		background-color: #e6f9ff;
+	}
+	
+	.github-icon {
+		background-color: #f5e6ff;
+	}
+	
+	.telegram-icon::before {
+		content: "T";
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-family: var(--font-subtitle);
+		font-weight: bold;
+		color: var(--primary);
+		font-size: 1.2rem;
+	}
+	
+	.github-icon::before {
+		content: "G";
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-family: var(--font-subtitle);
+		font-weight: bold;
+		color: var(--secondary);
+		font-size: 1.2rem;
+	}
+	
+	.icon-wrapper::after {
+		content: "✧";
+		position: absolute;
+		top: -8px;
+		right: -8px;
+		color: var(--accent);
+		font-size: 0.8rem;
+		opacity: 0;
+		transition: var(--transition);
+	}
+	
+	.social-link:hover .icon {
+		transform: rotate(-5deg) translateY(-2px);
+		box-shadow: 4px 4px 0px #000000;
+	}
+	
+	.social-link:hover .icon-wrapper::after {
+		opacity: 1;
+		animation: sparkle 1.5s infinite;
+	}
+	
+	.telegram-icon::after {
+		content: "";
+		position: absolute;
+		bottom: -2px;
+		right: -2px;
+		width: 8px;
+		height: 8px;
+		background-color: var(--primary);
+		border: 1px solid black;
+		border-radius: 50%;
+	}
+	
+	.github-icon::after {
+		content: "";
+		position: absolute;
+		bottom: -2px;
+		right: -2px;
+		width: 8px;
+		height: 8px;
+		background-color: var(--secondary);
+		border: 1px solid black;
+		border-radius: 50%;
+	}
+	
+	.cta-container {
+		display: flex;
+		justify-content: center;
+		margin-top: var(--spacing-md);
+	}
+	
+	.cta-container a {
+		text-decoration: none;
+	}
+	
+	@media (max-width: 768px) {
+		.social-links {
+			flex-direction: column;
+		}
+	}
+</style>

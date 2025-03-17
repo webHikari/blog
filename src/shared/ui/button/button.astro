@@ -1,0 +1,13 @@
+---
+interface Props {
+	label: string;
+}
+
+const { label }: Props = Astro.props;
+
+import styles from './button.module.css';
+---
+
+<button class={styles.button}>
+	{label}
+</button>
