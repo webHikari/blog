@@ -25,4 +25,4 @@ jobs:
             npm install
             npm run build
             sudo rm -rf /var/www/hikari.fish/*
-            sudo cp -R build/* /var/www/hikari.fish
+            sudo cp -R dist/* /var/www/hikari.fish
