@@ -20,7 +20,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            cd ~/hikari.fish
+            cd ~/blog
             git pull origin main
             npm install
             npm run build
