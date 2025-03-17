@@ -13,10 +13,17 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Install Dependencies
+        run: npm ci  # Быстрее чем npm install
+
       - name: Build Project
+        run: npm run build
+
+      - name: Debug Build Output
         run: |
-          npm install
-          npm run build
+          pwd
+          ls -la
+          ls -la dist
 
       - name: Deploy to Server
         uses: appleboy/ssh-action@v1.0.3
@@ -25,8 +32,10 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
+            set -e  # Останавливаем выполнение при ошибке
             cd /var/www/hikari.fish
             sudo rm -rf *
-            sudo cp -R $GITHUB_WORKSPACE/dist/* /var/www/hikari.fish
+            mkdir -p /var/www/hikari.fish  # Если вдруг папки нет
+            scp -r dist/* ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:/var/www/hikari.fish
             sudo chown -R www-data:www-data /var/www/hikari.fish
             sudo systemctl restart nginx
