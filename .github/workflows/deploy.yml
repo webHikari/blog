@@ -25,8 +25,8 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            cd /var/www/html
+            cd /var/www/hikari.fish
             sudo rm -rf *
-            sudo cp -R $GITHUB_WORKSPACE/dist/* /var/www/html
-            sudo chown -R www-data:www-data /var/www/html
+            sudo cp -R $GITHUB_WORKSPACE/dist/* /var/www/hikari.fish
+            sudo chown -R www-data:www-data /var/www/hikari.fish
             sudo systemctl restart nginx
