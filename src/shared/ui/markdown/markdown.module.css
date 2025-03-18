@@ -4,12 +4,12 @@
     gap: 1.5rem;
     
     background-color: var(--card-background);
-    border: var(--card-border);
-    box-shadow: var(--shadow);
+    /* border: var(--card-border); */
+    /* box-shadow: var(--shadow); */
     border-radius: var(--border-radius);
     
-    padding: var(--spacing-md);
-    transform: rotate(0.5deg);
+    /* padding: var(--spacing-md); */
+    /* transform: rotate(0.5deg); */
     transition: var(--transition);
 }
 
@@ -130,35 +130,53 @@
 
 .article :global(code) {
     font-family: var(--font-mono);
-    background-color: #f5f5f5;
+    background-color: #242132;
+    width: 100%;
     padding: 0.2rem 0.4rem;
     border-radius: 3px;
-    border: 1px solid #000;
-    color: var(--primary);
+    border: 2px solid #000;
+    color: var(--black);
+    font-size: 0.9rem;
+    position: relative;
+    display: inline-block;
+    box-shadow: 3px 3px 0px #000000;
+    transition: var(--transition);
+    margin: 0 0.5rem;
+}
+
+
+.article :global(code)::before {
+    content: "❮";
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent);
+    font-size: 0.8rem;
+    opacity: 0.8;
+    animation: float 2s ease-in-out infinite;
+}
+
+.article :global(code)::after {
+    content: "❯";
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    opacity: 0.8;
+    animation: float 2s ease-in-out infinite 0.5s;
 }
 
 .article :global(pre) {
-    background-color: #f5f5f5;
-    padding: var(--spacing-md);
+    background-color: #ffffff !important;
+    padding-bottom: 1rem;
     border-radius: var(--border-radius);
     overflow-x: auto;
     margin-bottom: 1.2rem;
-    border: 2px solid #000;
-    box-shadow: 4px 4px 0px #000000;
     position: relative;
 }
 
-.article :global(pre)::before {
-    content: "< code >";
-    position: absolute;
-    top: -10px;
-    left: 10px;
-    background-color: var(--accent);
-    padding: 0 8px;
-    font-family: var(--font-subtitle);
-    font-size: 0.9rem;
-    border: 1px solid #000;
-}
 
 .article :global(img) {
     max-width: 100%;

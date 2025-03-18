@@ -1,0 +1,103 @@
+---
+title: "Masonry Layout"
+description: "Simple masonry layout component"
+pubDate: "2025-03-18"
+---
+
+## Introduction
+
+Masonry layout is a popular layout technique used in web design to create a grid of items with varying heights. It's often used in galleries, blogs, and portfolios to display content in a visually appealing way.
+
+## Demo example
+
+import Component from './component.astro';
+
+<Component />
+
+## How to Create
+
+```astro
+---
+// component.astro
+---
+<div class="masonry-container">
+<figure class="masonry-item">
+    <img src="https://assets.codepen.io/12005/windmill.jpg" alt="A windmill" />
+    <figcaption><a href="#">1</a></figcaption>
+</figure>
+<figure class="masonry-item">
+    <img src="https://assets.codepen.io/12005/suspension-bridge.jpg" alt="The Clifton Suspension Bridge" />
+    <figcaption><a href="#">2</a></figcaption>
+</figure>
+
+</div>
+<style>
+    .masonry-container {
+        column-count: 4;
+        column-gap: 16px;
+        width: 100%;
+    }
+    .masonry-item {
+        margin: 0;
+        display: grid;
+        grid-template-rows: 1fr auto;
+        margin-bottom: 16px;
+        break-inside: avoid;
+        width: 100%;
+    }
+    .masonry-item img {
+        grid-row: 1 / -1;
+        grid-column: 1;
+        width: 100%;
+        max-width: 100%;
+    }
+    .masonry-item figcaption {
+        grid-row: 2;
+        grid-column: 1;
+        background-color: rgba(0,0,0,0.7);
+        color: white;
+        padding: .2em .5em;
+        justify-self: start;
+    }
+    .masonry-item figcaption a {
+        color: white;
+        text-decoration: none;
+    }
+
+    @media (max-width: 1200px) {
+        .masonry-container {
+            column-count: 3;
+        }   
+    }
+    @media (max-width: 800px) {
+        .masonry-container {
+            column-count: 2;
+        }
+    }
+    @media (max-width: 500px) {
+        .masonry-container {
+            column-count: 1;
+        }
+    }
+</style>
+
+```
+
+### Step 1
+
+Create a container element with the class _masonry-container_.
+
+### Step 2
+
+Add the class _masonry-item_ to each item you want to display in the masonry layout.
+
+### Step 3
+
+Add the class _masonry-item-img_ to the image element.
+
+### Step 4
+
+Add the class _masonry-item-figcaption_ to the figcaption element.
+
+
+## Fucking done

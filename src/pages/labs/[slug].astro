@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import Page from 'shared/layouts/page/page.astro';
+import Markdown from 'shared/ui/markdown/markdown.astro';
+
+export async function getStaticPaths() {
+  	const posts = await getCollection('labs');
+
+  	return posts.map((post) => {
+    	const slug = post.slug.replace(/\/index$/, '');
+
+    	return {
+      		params: { slug },
+      		props: { post },
+    	};
+  	});
+}
+
+const { post } = Astro.props;
+
+---
+
+<Page title={post.data.title} description={post.data.description} pubDate={post.data.pubDate} >
+    <Markdown post={post} title={post.data.title} pubDate={post.data.pubDate} />
+</Page>
