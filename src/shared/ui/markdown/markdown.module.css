@@ -128,48 +128,27 @@
     animation: float 3s ease-in-out infinite;
 }
 
+.article :global(pre) {
+	display: inline-block;
+	background: #242132 !important;
+}
+
 .article :global(code) {
     font-family: var(--font-mono);
-    background-color: #242132;
     width: 100%;
     padding: 0.2rem 0.4rem;
     border-radius: 3px;
-    border: 2px solid #000;
     color: var(--black);
     font-size: 0.9rem;
     position: relative;
     display: inline-block;
-    box-shadow: 3px 3px 0px #000000;
     transition: var(--transition);
     margin: 0 0.5rem;
 }
 
 
-.article :global(code)::before {
-    content: "❮";
-    position: absolute;
-    left: -10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--accent);
-    font-size: 0.8rem;
-    opacity: 0.8;
-    animation: float 2s ease-in-out infinite;
-}
-
-.article :global(code)::after {
-    content: "❯";
-    position: absolute;
-    right: -10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.8rem;
-    opacity: 0.8;
-    animation: float 2s ease-in-out infinite 0.5s;
-}
 
 .article :global(pre) {
-    background-color: #ffffff !important;
     padding-bottom: 1rem;
     border-radius: var(--border-radius);
     overflow-x: auto;

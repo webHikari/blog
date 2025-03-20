@@ -1,4 +1,3 @@
-/* Основные шрифты */
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
@@ -6,32 +5,26 @@
 :root {
     --max-width: 900px;
     
-    /* Пастельная цветовая схема в стиле Y2K Kawaii */
     --primary: #ffafd7;
     --secondary: #b19cd9;
     --accent: #99e6ff;
     --light-accent: #e6f9ff;
     
-    /* Фоны и карточки */
     --app-background: #fff8f8;
     --card-background: #ffffff;
     --card-foreground: #333333;
     
-    /* Тени и эффекты */
     --shadow: 6px 6px 0px #000000;
     --hover-shadow: 10px 10px 0px #000000;
     --card-border: 3px solid #000000;
     
-    /* Шрифты */
     --font-title: 'Press Start 2P', cursive;
     --font-subtitle: 'VT323', monospace;
     --font-text: 'Roboto Mono', monospace;
     --font-mono: 'Roboto Mono', monospace;
     
-    /* Анимации */
     --transition: all 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
     
-    /* Размеры и отступы */
     --border-radius: 0px;
     --spacing-xs: 8px;
     --spacing-sm: 16px;
@@ -146,7 +139,6 @@ button:not(#drawer-toggle, #drawer-close):active {
 
 
 
-/* Базовая анимация */
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -201,7 +193,6 @@ main > * {
     color: var(--accent);
 }
 
-/* Добавляем декоративные элементы на страницу */
 main::before {
     content: "✧";
     position: absolute;
@@ -313,7 +304,6 @@ main::after {
     color: var(--secondary);
 }
 
-/* Стилизация для вложенных окон */
 .window .window {
     transform: rotate(1deg);
     margin: var(--spacing-md);

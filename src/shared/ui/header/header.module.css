@@ -500,4 +500,8 @@
     box-shadow: 2px 2px 0px #000000;
 }
 
-
+@media screen and (max-width: 400px) {
+	.logo {
+		font-size: 1.25rem;
+	}
+}
